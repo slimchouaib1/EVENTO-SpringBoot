@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
+    <title>Login | Evento</title>
+    <meta name="description" content="" />
+
+    <!-- Favicon -->
+    <link th:href="@{/Assets/assets/img/favicon/favicon.ico}" rel="icon" type="image/x-icon" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Core CSS -->
+    <link th:href="@{/Assets/assets/vendor/css/core.css}" rel="stylesheet" />
+    <link th:href="@{/Assets/assets/vendor/css/theme-default.css}" rel="stylesheet" />
+    <link th:href="@{/Assets/assets/css/demo.css}" rel="stylesheet" />
+    <link th:href="@{/Assets/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css}" rel="stylesheet" />
+</head>
+<body>
+<div class="container-xxl">
+    <div class="authentication-wrapper authentication-basic container-p-y">
+        <div class="authentication-inner">
+            <!-- Login Card -->
+            <div class="card">
+                <div class="card-body">
+                    <!-- Logo -->
+                    <a th:href="@{/}">
+                        <div class="app-brand justify-content-center">
+                            <img th:src="@{/Assets/assets/img/images/Waves.png}" alt="Logo" class="app-brand-logo me-2">
+                        </div>
+                    </a>
+                    <h4 class="mb-2">Bienvenue sur EVENTO! 👋</h4>
+                    <p class="mb-4">Veuillez vous connecter à votre compte et commencer l'aventure</p>
+
+                    <!-- Login Form -->
+                    <form id="formAuthentication" class="mb-3" th:action="@{/login}" method="post">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="username" placeholder="Entrez votre email" autofocus required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Mot de passe</label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Entrez votre mot de passe" required />
+                        </div>
+                        <div class="mb-3">
+                            <button class="btn btn-primary d-grid w-100" type="submit">Connexion</button>
+                        </div>
+                    </form>
+
+                    <p class="text-center">
+                        <span>Nouveau sur notre plateforme ?</span>
+                        <a th:href="@{/register}">
+                            <span>Créer un compte</span>
+                        </a>
+
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Core JS -->
+<script th:src="@{/Assets/assets/vendor/libs/jquery/jquery.js}"></script>
+<script th:src="@{/Assets/assets/vendor/libs/popper/popper.js}"></script>
+<script th:src="@{/Assets/assets/vendor/js/bootstrap.js}"></script>
+<script th:src="@{/Assets/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js}"></script>
+<script th:src="@{/Assets/assets/js/main.js}"></script>
+</body>
+</html>

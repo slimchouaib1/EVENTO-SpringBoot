@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
+    <title>Login | Evento</title>
+    <meta name="description" content="" />
+
+    <!-- Favicon -->
+    <link th:href="@{/Assets/assets/img/favicon/favicon.ico}" rel="icon" type="image/x-icon" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Core CSS -->
+    <link th:href="@{/Assets/assets/vendor/css/core.css}" rel="stylesheet" />
+    <link th:href="@{/Assets/assets/vendor/css/theme-default.css}" rel="stylesheet" />
+    <link th:href="@{/Assets/assets/css/demo.css}" rel="stylesheet" />
+    <link th:href="@{/Assets/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css}" rel="stylesheet" />
+</head>
+
+<body>
+<div class="container-xxl">
+    <div class="authentication-wrapper authentication-basic container-p-y">
+        <div class="authentication-inner" style="max-width: 540px">
+            <div class="card">
+                <div class="card-body">
+                    <a th:href="@{/}">
+                        <div class="app-brand justify-content-center">
+                            <img th:src="@{/assets/img/images/Waves.png}" alt="EVENTO" class="app-brand-logo me-2">
+                        </div>
+                    </a>
+                    <h4 class="mb-2">L'aventure commence ici 🚀</h4>
+                    <p class="mb-2">Apprendre, Créer et découvrir nos evenement</p>
+
+                    <form th:action="@{/register}" th:object="${utilisateurDto}" method="post">
+                        <div class="row g-2 mb-3">
+                            <div class="col mb-0">
+                                <label for="name" class="form-label">Nom</label>
+                                <input type="text" id="name" name="nom" th:field="*{nom}" class="form-control" placeholder="Nom" required>
+                            </div>
+                            <div class="col mb-0">
+                                <label for="prename" class="form-label">Prénom</label>
+                                <input type="text" id="prename" name="prenom" th:field="*{prenom}" class="form-control" placeholder="Prénom" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" id="email" name="email" th:field="*{email}" class="form-control" placeholder="Email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Mot de passe</label>
+                            <input type="password" id="password" name="password" th:field="*{password}" class="form-control" placeholder="Mot de passe" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary mb-3 d-grid w-100">S'inscrire</button>
+                    </form>
+                    <p class="text-center">
+                        <span>Vous avez déjà un compte?</span>
+                        <a th:href="@{/login}">
+                            <span>Connectez-vous</span>
+                        </a>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/Assets/assets/vendor/libs/jquery/jquery.js}"></script>
+<script th:src="@{/Assets/assets/vendor/libs/popper/popper.js}"></script>
+<script th:src="@{/Assets/assets/vendor/js/bootstrap.js}"></script>
+<script th:src="@{/Assets/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js}"></script>
+<script th:src="@{/Assets/assets/js/main.js}"></script>
+</body>
+
+</html>

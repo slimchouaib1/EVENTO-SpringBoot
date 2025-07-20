@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="Assets/assets/" data-template="vertical-menu-template-free">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
+    <title>Container - Layouts | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <meta name="description" content="" />
+    <link rel="icon" type="image/x-icon" href="Assets/assets/img/favicon/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="Assets/assets/vendor/fonts/boxicons.css" />
+    <link rel="stylesheet" href="Assets/assets/vendor/css/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="Assets/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="Assets/assets/css/demo.css" />
+    <link rel="stylesheet" href="Assets/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <script src="Assets/assets/vendor/js/helpers.js"></script>
+    <script src="Assets/assets/js/config.js"></script>
+</head>
+
+<body>
+
+
+<div class="layout-wrapper">
+    <div class="layout-container">
+        <div class="layout-page">
+            <div class="content-wrapper">
+                <div class="container-xxl flex-grow-1 container-p-y">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5>Liste des Utilisateurs</h5>
+                            <button class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#modalAddUser">
+                                Ajouter un utilisateur
+                            </button>
+                        </div>
+                        <div class="card">
+                            <table class="table border-top">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nom</th>
+                                    <th>Prénom</th>
+                                    <th>Email</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:if="${#lists.isEmpty(utilisateurs)}">
+                                    <td colspan="5">Aucun utilisateur trouvé.</td>
+                                </tr>
+                                <tr th:each="utilisateur : ${utilisateurs}">
+                                    <td th:text="${utilisateur.id}"></td>
+                                    <td th:text="${utilisateur.nom}"></td>
+                                    <td th:text="${utilisateur.prenom}"></td>
+                                    <td th:text="${utilisateur.email}"></td>
+
+                                    <td>
+                                        <!-- Edit Button -->
+                                        <a href="#"
+                                           class="btn btn-sm btn-icon item-edit"
+                                           data-bs-toggle="modal"
+                                           data-bs-target="#modalEditUser"
+                                           th:attr="data-id=${utilisateur.id},
+                                                    data-nom=${utilisateur.nom},
+                                                    data-prenom=${utilisateur.prenom},
+                                                    data-email=${utilisateur.email},
+                                                    data-password=${utilisateur.password}">
+                                            <i class="bx bxs-edit"></i>
+                                        </a>
+
+                                        <!-- Delete Button -->
+                                        <a th:href="@{'/utilisateur/delete/' + ${utilisateur.id}}"
+                                           class="btn btn-sm btn-icon item-delete">
+                                            <i class="bx bx-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Create User Modal -->
+<div class="modal fade" id="modalAddUser" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form th:action="@{/utilisateur/create}" th:object="${utilisateurDto}" method="post">
+                <div class="modal-body">
+                    <!-- Nom -->
+                    <div class="mb-3">
+                        <label for="add-nom" class="form-label">Nom</label>
+                        <input type="text" id="add-nom" name="nom" th:field="*{nom}" class="form-control" placeholder="Nom">
+                    </div>
+                    <!-- Prénom -->
+                    <div class="mb-3">
+                        <label for="add-prenom" class="form-label">Prénom</label>
+                        <input type="text" id="add-prenom" name="prenom" th:field="*{prenom}" class="form-control" placeholder="Prénom">
+                    </div>
+                    <!-- Email -->
+                    <div class="mb-3">
+                        <label for="add-email" class="form-label">Email</label>
+                        <input type="email" id="add-email" name="email" th:field="*{email}" class="form-control" placeholder="Email">
+                    </div>
+                    <!-- Password -->
+                    <div class="mb-3">
+                        <label for="add-password" class="form-label">Mot de passe</label>
+                        <input type="password" id="add-password" name="password" th:field="*{password}" class="form-control" placeholder="Mot de passe">
+                    </div>
+                    <!-- Role -->
+                    <div class="mb-3">
+                        <label for="add-role" class="form-label">Rôle</label>
+                        <select id="add-role" name="role" class="form-select" required>
+                            <option value="USER">Utilisateur</option>
+                            <option value="ADMIN">Administrateur</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Edit User Modal -->
+<div class="modal fade" id="modalEditUser" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modifier Utilisateur</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form th:action="@{/utilisateur/update}" method="post">
+                <div class="modal-body">
+                    <input type="hidden" id="edit-id" name="id" />
+                    <div class="mb-3">
+                        <label for="edit-nom" class="form-label">Nom</label>
+                        <input type="text" id="edit-nom" name="nom" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit-prenom" class="form-label">Prénom</label>
+                        <input type="text" id="edit-prenom" name="prenom" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit-email" class="form-label">Email</label>
+                        <input type="email" id="edit-email" name="email" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit-password" class="form-label">Mot de passe</label>
+                        <input type="password" id="edit-password" name="password" class="form-control" />
+                    </div>
+                    <!-- Role -->
+                    <div class="mb-3">
+                        <label for="edit-role" class="form-label">Rôle</label>
+                        <select id="edit-role" name="role" class="form-select">
+                            <option value="USER">Utilisateur</option>
+                            <option value="ADMIN">Administrateur</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Fermer</button>
+                    <button type="submit" class="btn btn-primary">Modifier</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const editButtons = document.querySelectorAll(".item-edit");
+
+        editButtons.forEach(button => {
+            button.addEventListener("click", function () {
+                const userId = this.getAttribute("data-id");
+                const userNom = this.getAttribute("data-nom");
+                const userPrenom = this.getAttribute("data-prenom");
+                const userEmail = this.getAttribute("data-email");
+                const userPassword = this.getAttribute("data-password");
+                const userRole = this.getAttribute("data-role"); // Fetch the role attribute
+
+                document.querySelector("#modalEditUser input[name='id']").value = userId;
+                document.querySelector("#modalEditUser input[name='nom']").value = userNom;
+                document.querySelector("#modalEditUser input[name='prenom']").value = userPrenom;
+                document.querySelector("#modalEditUser input[name='email']").value = userEmail;
+                document.querySelector("#modalEditUser input[name='password']").value = userPassword;
+                document.querySelector("#modalEditUser select[name='role']").value = userRole; // Set the role
+            });
+        });
+
+        document.getElementById('addUserButton').addEventListener('click', () => {
+            document.getElementById('addUserForm').reset();
+        });
+    });
+
+</script>
+
+<script src="Assets/assets/vendor/libs/jquery/jquery.js"></script>
+<script src="Assets/assets/vendor/libs/popper/popper.js"></script>
+<script src="Assets/assets/vendor/js/bootstrap.js"></script>
+<script src="Assets/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+<script src="Assets/assets/vendor/js/menu.js"></script>
+<script src="Assets/assets/js/main.js"></script>
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+</body>
+</html>
